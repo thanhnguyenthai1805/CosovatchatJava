@@ -16,7 +16,12 @@ public class CoSoVatChatDAO {
 
         List<CoSoVatChat> list = new ArrayList<>();
 
-        String sql = "SELECT * FROM CoSoVatChat ORDER BY Ma";
+         String sql = """
+    SELECT c.*, l.TenLoai
+    FROM CoSoVatChat c
+    JOIN LoaiCoSoVatChat l ON c.MaLoai = l.MaLoai
+    ORDER BY c.Ma
+    """;
 
         try (
             Connection conn = ConnectionDB.getConnection();
@@ -31,6 +36,7 @@ public class CoSoVatChatDAO {
                 cs.setMa(rs.getString("Ma"));
                 cs.setTen(rs.getString("Ten"));
                 cs.setMaloai(rs.getString("MaLoai"));
+                cs.setTenLoai(rs.getString("TenLoai"));
                 cs.setPhongKhuVuc(rs.getString("PhongKhuVuc"));
                 cs.setSoLuong(rs.getInt("SoLuong"));
                 cs.setTinhTrang(rs.getString("TinhTrang"));
@@ -42,7 +48,7 @@ public class CoSoVatChatDAO {
                 }
 
                 cs.setGhiChu(rs.getString("GhiChu"));
-
+               
                 list.add(cs);
             }
 
@@ -61,7 +67,7 @@ public class CoSoVatChatDAO {
         List<String> dsLoai = new ArrayList<>();
 
         String sql =
-                "SELECT MaLoai FROM LoaiCoSoVatChat ORDER BY MaLoai";
+                "SELECT tenLoai FROM LoaiCoSoVatChat ORDER BY tenLoai";
 
         try (
             Connection conn = ConnectionDB.getConnection();
@@ -70,7 +76,7 @@ public class CoSoVatChatDAO {
         ) {
 
             while (rs.next()) {
-                dsLoai.add(rs.getString("MaLoai"));
+                dsLoai.add(rs.getString("tenloai"));
             }
 
         } catch (SQLException e) {
@@ -228,4 +234,5 @@ public class CoSoVatChatDAO {
 
         return false;
     }
+    
 }

@@ -20,17 +20,35 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
     List<CoSoVatChat> list = new ArrayList<CoSoVatChat>();
     private int pos = -1;
     private static int check = 0;
-
-    public CoSoVatChatJFrame() {
+    private String vaitro;
+    public CoSoVatChatJFrame(String vaitro) {
         initComponents();
+        this.vaitro = vaitro;
+        System.out.println("Vai trò nhận được: [" + this.vaitro + "]");
+        phanquyen();
         loadLoai();
         tblCoso.setDefaultEditor(Object.class, null);
         viewTable();
+        
         onOff(true, false);
         this.jPanel4.setBackground(Color.darkGray);
 
     }
-
+    private void phanquyen(){
+        boolean laAdmin = "admin".equalsIgnoreCase(vaitro);
+        System.out.println("Vai trò trong JFrame: [" + vaitro + "]");
+    System.out.println("Có quyền Admin: " + laAdmin);
+        btnAdd.setEnabled(laAdmin);
+        btnAddloai.setEnabled(laAdmin);
+        btnDelete.setEnabled(laAdmin);
+        btnExit.setEnabled(laAdmin);
+        btnLamTrong.setEnabled(laAdmin);
+        btnSave.setEnabled(laAdmin);
+        btnUpdate.setEnabled(laAdmin);
+        
+       
+        
+    }
     public void clearForm() {
 
         this.txtDate.setText("");
@@ -49,9 +67,9 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
             return;
         }
         CoSoVatChat x = list.get(pos);
-
+        txtma.setText(x.getMa());
         txtName.setText(x.getTen());
-        cboLoai.setSelectedItem(x.getMaloai());
+        cboLoai.setSelectedItem(x.getTenLoai());
         txtRoom.setText(x.getPhongKhuVuc());
         txtNumber.setText("" + x.getSoLuong());
         cboTinhTrang.setSelectedItem(x.getTinhTrang());
@@ -71,7 +89,7 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
             model.addRow(new Object[]{
                 x.getMa(),
                 x.getTen(),
-                x.getMaloai(),
+                x.getTenLoai(),
                 x.getPhongKhuVuc(),
                 x.getSoLuong(),
                 x.getTinhTrang(),
@@ -141,6 +159,9 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
         btnSave = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
         btnAddloai = new javax.swing.JButton();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        txtma = new javax.swing.JTextPane();
+        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
         txtSearch = new javax.swing.JTextPane();
@@ -289,6 +310,11 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
         btnAddloai.setText("+");
         btnAddloai.addActionListener(this::btnAddloaiActionPerformed);
 
+        txtma.setEditable(false);
+        jScrollPane7.setViewportView(txtma);
+
+        jLabel10.setText("Mã :");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -303,14 +329,16 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
                             .addComponent(btnExit)
                             .addGap(107, 107, 107))
                         .addGroup(jPanel6Layout.createSequentialGroup()
-                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jScrollPane1)
@@ -322,7 +350,8 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                                     .addComponent(cboLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnAddloai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(btnAddloai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jScrollPane7))
                             .addGap(44, 44, 44)))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(btnAdd)
@@ -337,7 +366,14 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel10)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -376,9 +412,9 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
                     .addComponent(btnDelete)
                     .addComponent(btnLamTrong))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSave)
-                    .addComponent(btnExit))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnExit)
+                    .addComponent(btnSave))
                 .addGap(37, 37, 37))
         );
 
@@ -406,9 +442,9 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(53, 53, 53))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSearch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -456,7 +492,7 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         String name = this.txtName.getText();
-        String loai = this.cboLoai.getSelectedItem().toString();
+        String tenloai = this.cboLoai.getSelectedItem().toString();
         String room = this.txtRoom.getText();
         String txtnumber = this.txtNumber.getText().trim();
         String tinhtrang = this.cboTinhTrang.getSelectedItem().toString();
@@ -467,8 +503,25 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin");
             return;
         }
-        if (loai.trim().equals("Chọn loại") || tinhtrang.trim().equals("Chọn tình trạng")) {
+        if (tenloai.trim().equals("Chọn loại") || tinhtrang.trim().equals("Chọn tình trạng")) {
             JOptionPane.showConfirmDialog(this, "Vui lòng chọn loại và tình trang");
+            return;
+        }
+        String sql = "SELECT MaLoai FROM LoaiCoSoVatChat WHERE TenLoai = ?";
+        String maLoai;
+
+        try (Connection conn = ConnectionDB.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, tenloai);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (!rs.next()) {
+                    JOptionPane.showMessageDialog(this, "Không tìm thấy mã loại!");
+                    return;
+                }
+                maLoai = rs.getString("MaLoai");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
             return;
         }
         int number;
@@ -515,7 +568,7 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
         // Tạo đối tượng với mã tự động khi thêm mới,
         // hoặc mã thật khi cập nhật
         CoSoVatChat cs = new CoSoVatChat(
-                ma, name, loai, room, number,
+                ma, name, tenloai,maLoai, room, number,
                 tinhtrang, ngaynhap, note
         );
 
@@ -557,6 +610,8 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
+       
+        txtma.setEditable(false);
         if (pos < 0 || pos >= list.size()) {
             JOptionPane.showMessageDialog(this, "Chọn dòng cần sửa");
             return;
@@ -568,7 +623,9 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        check = 1;
+        txtma.setText("");
+        txtma.setEditable(false);
+       check = 1;
         clearForm();
         pos = -1;
         onOff(false, true);
@@ -627,12 +684,12 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
         for (CoSoVatChat x : list) {
             String name = x.getTen().toLowerCase();
             String room = x.getPhongKhuVuc().toLowerCase();
-            String loai = x.getMaloai().toLowerCase();
+            String loai = x.getTenLoai().toLowerCase();
             if (name.contains(keyword) || room.contains(keyword) || loai.contains(keyword)) {
                 model.addRow(new Object[]{
                     x.getMa(),
                     x.getTen(),
-                    x.getMaloai(),
+                    x.getTenLoai(),
                     x.getPhongKhuVuc(),
                     x.getSoLuong(),
                     x.getTinhTrang(),
@@ -715,7 +772,7 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new CoSoVatChatJFrame().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new LoginCoSoVatChatJFrame().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -731,6 +788,7 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboTinhTrang;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -749,6 +807,7 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable tblCoso;
@@ -758,5 +817,6 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
     private javax.swing.JTextPane txtNumber;
     private javax.swing.JTextPane txtRoom;
     private javax.swing.JTextPane txtSearch;
+    private javax.swing.JTextPane txtma;
     // End of variables declaration//GEN-END:variables
 }

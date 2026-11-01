@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public class CoSoVatChat {
         private String ma;
         private String ten;
+        private String tenLoai;
         private String maloai;
         private String phongkhuvuc;
         private int soluong;
@@ -16,6 +17,7 @@ public class CoSoVatChat {
     public CoSoVatChat(
             String ma,
             String ten,
+            String tenloai,
             String maloai,
             String phongkhuvuc,
             int soluong,
@@ -24,6 +26,7 @@ public class CoSoVatChat {
             String ghichu
     ){
         this.ma=ma;
+        this.tenLoai=tenloai;
         this.ten=ten;
         this.maloai=maloai;
         this.phongkhuvuc=phongkhuvuc;
@@ -33,6 +36,14 @@ public class CoSoVatChat {
         this.ghichu=ghichu;
     }
 
+    public String getTenLoai() {
+        return tenLoai;
+    }
+
+    public void setTenLoai(String tenLoai) {
+        this.tenLoai = tenLoai;
+    }
+    
     public String getMa(){
         return ma;
     }

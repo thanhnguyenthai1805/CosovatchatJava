@@ -126,4 +126,42 @@ public class LoaiCoSoVatChatDAO {
             return false;
         }
     }
+    public boolean sudung(String maloai){
+        String sql = """
+                     select count(*)
+                     from dbo.cosovatchat
+                     where maloai = ?
+                     """;
+        try(Connection conn = ConnectionDB.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)
+                ){
+            ps.setString(1, maloai);
+            try (ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    return rs.getInt(1) > 0;
+                }
+            }
+        }catch(SQLException ex ){
+            JOptionPane.showMessageDialog(null, "Lỗi kiểm tra loai " + ex.getMessage());
+        }
+        return false;
+    }
+public String taoMaloai(){
+        String sql = """
+                     select max(try_convert(int,substring(maloai,5,30)))
+                     from dbo.loaicosovatchat
+                     where maloai like 'LOAI%'
+                     """;
+        try(Connection conn = ConnectionDB.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()){
+            if(rs.next()){
+                int so = rs.getInt(1)+1;
+                return String.format("LOAI%03d", so);
+            }
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,"Lỗi tạo mã"+ex.getMessage());
+        }
+    return null;
+    }
 }

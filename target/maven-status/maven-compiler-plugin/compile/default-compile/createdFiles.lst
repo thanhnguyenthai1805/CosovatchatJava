@@ -1,7 +1,6 @@
 com\mycompany\managementstudent\model\CoSoVatChat.class
 com\mycompany\managementstudent\ui\CoSoVatChatJFrame$4.class
 com\mycompany\managementstudent\database\ConnectionDB.class
-com\mycompany\managementstudent\database\TestConnect.class
 com\mycompany\managementstudent\ui\CoSoVatChatJFrame$3.class
 com\mycompany\managementstudent\model\LoaiCoSoVatChat.class
 com\mycompany\managementstudent\dao\taikhoanDAO.class

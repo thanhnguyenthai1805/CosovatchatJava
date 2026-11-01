@@ -18,6 +18,7 @@ public class LoaiCoSoVatChatJFrame extends javax.swing.JFrame {
     private int check =0;//check = 0 xem dữ liệu check  = 1 thêm mơi check =-1 sửa
     public LoaiCoSoVatChatJFrame() {
         initComponents();
+      
         tblloai.setDefaultEditor(Object.class, null);
         loadTable();
         onOff(true, false);
@@ -278,23 +279,28 @@ public class LoaiCoSoVatChatJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        // TODO add your handling code here:
-      if(pos < 0 || pos >= list.size()){
-            JOptionPane.showMessageDialog(this, "Chọn dòng cần xóa");
+        if(pos < 0 || pos >=list.size()){
+            JOptionPane.showMessageDialog(this,"Vui long chòn dòng");
             return;
-        }  
-      int result = JOptionPane.showConfirmDialog(this,"Bạn có muốn xóa không","Xác nhận xóa",JOptionPane.YES_NO_OPTION);
-      if(result == JOptionPane.YES_OPTION){
-          String maloai = list.get(pos).getMaloai();
-          boolean kq = dao.delete(maloai);
-          if(kq){
-              JOptionPane.showMessageDialog(this,"Xóa thành công");
-              pos = -1;
-              check = 0;
-              clearForm();
-              loadTable();
-          }
-      }
+        }
+        String maloai = list.get(pos).getMaloai();
+        if(dao.sudung(maloai)){
+            JOptionPane.showMessageDialog(this,"Không thế xóa vì đang sử dụng");
+            return;
+        }
+        int result = JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa loại này không","Xác nhận xóa",JOptionPane.YES_NO_OPTION);
+        if(result == JOptionPane.YES_OPTION){
+            boolean kq = dao.delete(maloai);
+            if(kq){
+                JOptionPane.showMessageDialog(this, "Xóa thành công");
+                pos = -1;
+                check = 0;
+                loadTable();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Xóa thất bại");
+            }
+        }
       
     }//GEN-LAST:event_btnXoaActionPerformed
 
@@ -315,8 +321,14 @@ public class LoaiCoSoVatChatJFrame extends javax.swing.JFrame {
 
     if (check == 1) {
         // Thêm mới
+        String maloai = dao.taoMaloai();
+        if(maloai == null){
+            JOptionPane.showMessageDialog(this,"Không tạo được mã mới");
+            return;
+        }
+        LoaiCoSoVatChat loai = new LoaiCoSoVatChat(maloai,tenloai);
+        ketqua = dao.insert(loai);
         
-        ketqua = dao.insert(new LoaiCoSoVatChat(null, tenloai));
 
     } else if (check == -1) {
         // Sửa
@@ -341,7 +353,7 @@ public class LoaiCoSoVatChatJFrame extends javax.swing.JFrame {
 
         loadTable();
         clearForm();
-
+        onOff(true, false);
         pos = -1;
         check = 0;
     } else {
