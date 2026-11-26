@@ -1,8 +1,5 @@
-﻿-- Bổ sung chức năng quản lí tài khoản: chạy lại an toàn trên database hiện có.
-IF DB_ID(N'Quanlycosovatchat') IS NULL
+﻿IF DB_ID(N'Quanlycosovatchat') IS NULL
     create database Quanlycosovatchat;
-GO
--- delete database Quanlycosovatchat; -- Giữ lệnh cũ dưới dạng chú thích vì sai cú pháp.
 GO
 USE Quanlycosovatchat;
 GO
@@ -20,13 +17,10 @@ create table loaicosovatchat(
     ('LOAI004',N'Thiết bị thể thao');
 END;
 GO
-	select *
-	from loaicosovatchat
-	-- delete loaicosovatchat
-	-- delete cosovatchat
-	
-
+	select * from loaicosovatchat;
 GO
+
+
 IF OBJECT_ID(N'dbo.cosovatchat', N'U') IS NULL
 BEGIN
 create table cosovatchat(
@@ -54,73 +48,41 @@ insert into cosovatchat(ma,ten,maloai,phongkhuvuc,soluong,tinhtrang,ngaynhap,ghi
 ('20261025004',N'Máy tính để bàn', 'LOAI001', N'Phòng tin học 1', 30, N'Tốt', '2024-08-15', N'Máy phục vụ giờ thực hành');
 END;
 GO
-select *
-from cosovatchat
+select * from cosovatchat;
 GO
 IF OBJECT_ID(N'dbo.taikhoan', N'U') IS NULL
 BEGIN
-create table taikhoan(
-MaTaiKhoan INT IDENTITY(1,1) PRIMARY KEY,
-    TenDangNhap NVARCHAR(50) NOT NULL UNIQUE,
-    MatKhau NVARCHAR(255) NOT NULL,
-    VaiTro NVARCHAR(20) NOT NULL
-        CHECK (VaiTro IN ('Admin', 'User'))
-		);
-INSERT INTO TaiKhoan (TenDangNhap, MatKhau, VaiTro)
-VALUES
-    (N'admin', N'Admin12345@', N'Admin'),
-    (N'user', N'User12345@', N'User');
+    create table taikhoan(
+        MaTaiKhoan nvarchar(30) primary key,
+        TenDangNhap nvarchar(50) not null unique,
+        MatKhau nvarchar(255) not null,
+        VaiTro nvarchar(20) not null check(VaiTro in ('Admin', 'User')),
+        NgayTao date not null default getdate()
+    );
+
+    insert into taikhoan(MaTaiKhoan, TenDangNhap, MatKhau, VaiTro) values
+    (N'TK001', N'Admin', N'Admin12345@', N'Admin'),
+    (N'TK002', N'User', N'User12345@', N'User');
 END;
 GO
 
-select *
-from taikhoan
---  taikhoan
+update taikhoan set TenDangNhap = N'Admin', MatKhau = N'Admin12345@'
+where TenDangNhap in (N'admin', N'Admin') and VaiTro = N'Admin' and MatKhau = N'12345';
+
+update taikhoan set TenDangNhap = N'User', MatKhau = N'User12345@'
+where TenDangNhap in (N'user', N'User') and VaiTro = N'User' and MatKhau = N'12345';
 GO
 
+select MaTaiKhoan, TenDangNhap, VaiTro, NgayTao from taikhoan;
+GO
 
--- Bổ sung chức năng quản lí tài khoản
--- Chạy bằng Windows Authentication có quyền ALTER trên database; sao lưu trước.
-USE [Quanlycosovatchat];
-GO
-SET XACT_ABORT ON;
-BEGIN TRY
-    BEGIN TRANSACTION;
-    IF OBJECT_ID(N'dbo.TaiKhoan', N'U') IS NULL
-        THROW 50001, N'Chưa có bảng TaiKhoan. Hãy tạo bảng từ script dự án trước.', 1;
-    IF EXISTS (SELECT 1 FROM sys.columns WHERE object_id=OBJECT_ID(N'dbo.TaiKhoan') AND name=N'MaTaiKhoan' AND is_identity=1)
-    BEGIN
-        IF EXISTS (SELECT 1 FROM sys.foreign_keys WHERE referenced_object_id=OBJECT_ID(N'dbo.TaiKhoan') OR parent_object_id=OBJECT_ID(N'dbo.TaiKhoan'))
-            THROW 50002, N'Bảng có khóa ngoại; cần kiểm tra trước khi chuyển mã.', 1;
-        DECLARE @pk sysname = (SELECT name FROM sys.key_constraints WHERE parent_object_id=OBJECT_ID(N'dbo.TaiKhoan') AND type='PK');
-        ALTER TABLE dbo.TaiKhoan ADD MaTaiKhoanMoi NVARCHAR(30) NULL;
-        EXEC(N'UPDATE dbo.TaiKhoan SET MaTaiKhoanMoi = N''TK'' + CASE WHEN MaTaiKhoan < 1000 THEN RIGHT(N''000'' + CONVERT(nvarchar(20),MaTaiKhoan),3) ELSE CONVERT(nvarchar(20),MaTaiKhoan) END');
-        IF @pk IS NOT NULL
-        BEGIN
-            DECLARE @dropPk nvarchar(max) = N'ALTER TABLE dbo.TaiKhoan DROP CONSTRAINT ' + QUOTENAME(@pk);
-            EXEC sys.sp_executesql @dropPk;
-        END;
-        EXEC(N'ALTER TABLE dbo.TaiKhoan DROP COLUMN MaTaiKhoan;');
-        EXEC sys.sp_rename N'dbo.TaiKhoan.MaTaiKhoanMoi', N'MaTaiKhoan', N'COLUMN';
-        -- Tách thành hai batch để SQL Server cập nhật metadata trước khi tạo khóa chính.
-        EXEC(N'ALTER TABLE dbo.TaiKhoan ALTER COLUMN MaTaiKhoan NVARCHAR(30) NOT NULL;');
-    END;
-    IF NOT EXISTS (SELECT 1 FROM sys.columns WHERE object_id=OBJECT_ID(N'dbo.TaiKhoan') AND name=N'MaTaiKhoan' AND system_type_id=231 AND is_identity=0)
-        THROW 50003, N'Kiểu mã hiện tại không tương thích; cần kiểm tra cấu trúc bảng.', 1;
-    -- Bổ sung chức năng quản lí tài khoản: hoàn tất cả trường hợp mã đã chuyển sang chuỗi.
-    IF EXISTS (SELECT 1 FROM sys.columns WHERE object_id=OBJECT_ID(N'dbo.TaiKhoan') AND name=N'MaTaiKhoan' AND is_nullable=1)
-        EXEC(N'ALTER TABLE dbo.TaiKhoan ALTER COLUMN MaTaiKhoan NVARCHAR(30) NOT NULL;');
-    IF NOT EXISTS (SELECT 1 FROM sys.key_constraints WHERE parent_object_id=OBJECT_ID(N'dbo.TaiKhoan') AND type='PK')
-        EXEC(N'ALTER TABLE dbo.TaiKhoan ADD CONSTRAINT PK_TaiKhoan_Ma PRIMARY KEY (MaTaiKhoan);');
-    IF COL_LENGTH(N'dbo.TaiKhoan', N'NgayTao') IS NULL
-        EXEC(N'ALTER TABLE dbo.TaiKhoan ADD NgayTao DATE NOT NULL CONSTRAINT DF_TaiKhoan_NgayTao DEFAULT (CONVERT(date,GETDATE())) WITH VALUES;');
-    COMMIT TRANSACTION;
-END TRY
-BEGIN CATCH
-    IF @@TRANCOUNT > 0 ROLLBACK TRANSACTION;
-    THROW;
-END CATCH;
-GO
-IF COL_LENGTH(N'dbo.TaiKhoan', N'NgayTao') IS NOT NULL
-    EXEC(N'SELECT MaTaiKhoan, TenDangNhap, VaiTro, NgayTao FROM dbo.TaiKhoan ORDER BY LEN(MaTaiKhoan), MaTaiKhoan;');
+IF SUSER_ID(N'thanh') IS NOT NULL
+BEGIN
+    IF USER_ID(N'thanh') IS NULL
+        CREATE USER [thanh] FOR LOGIN [thanh];
+    IF IS_ROLEMEMBER(N'db_datareader', N'thanh') = 0
+        ALTER ROLE db_datareader ADD MEMBER [thanh];
+    IF IS_ROLEMEMBER(N'db_datawriter', N'thanh') = 0
+        ALTER ROLE db_datawriter ADD MEMBER [thanh];
+END;
 GO

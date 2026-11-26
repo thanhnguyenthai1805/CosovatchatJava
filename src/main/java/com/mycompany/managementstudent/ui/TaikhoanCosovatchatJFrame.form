@@ -1,0 +1,285 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="2" />
+    <Property name="title" type="java.lang.String" value="Quản lý tài khoản" />
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1" />
+    <SyntheticProperty name="generateCenter" type="boolean" value="false" />
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0" />
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false" />
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true" />
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false" />
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false" />
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1" />
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="3" />
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false" />
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2" />
+  </AuxValues>
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" attributes="0" groupAlignment="0">
+        <Group type="102" attributes="0">
+          <EmptySpace min="-2" pref="12" max="-2" attributes="0" />
+          <Group type="103" attributes="0" groupAlignment="0">
+            <Component id="title" min="0" pref="920" max="32767" attributes="0" />
+            <Group type="102" attributes="0">
+              <Group type="103" attributes="0" groupAlignment="0">
+                <Component id="lblList" min="-2" pref="-2" max="-2" attributes="0" />
+                <Component id="scroll" min="350" pref="510" max="32767" attributes="0" />
+              </Group>
+              <EmptySpace min="-2" pref="16" max="-2" attributes="0" />
+              <Group type="103" attributes="0" groupAlignment="0">
+                <Component id="lblInfo" min="-2" pref="-2" max="-2" attributes="0" />
+                <Group type="102" attributes="0">
+                  <Group type="103" attributes="0" groupAlignment="0">
+                    <Component id="lblMa" min="-2" pref="-2" max="-2" attributes="0" />
+                    <Component id="lblTen" min="-2" pref="-2" max="-2" attributes="0" />
+                    <Component id="lblMk" min="-2" pref="-2" max="-2" attributes="0" />
+                    <Component id="lblRole" min="-2" pref="-2" max="-2" attributes="0" />
+                    <Component id="lblNgay" min="-2" pref="-2" max="-2" attributes="0" />
+                  </Group>
+                  <EmptySpace min="-2" pref="12" max="-2" attributes="0" />
+                  <Group type="103" attributes="0" groupAlignment="0">
+                    <Component id="ma" min="170" pref="250" max="32767" attributes="0" />
+                    <Component id="ten" min="170" pref="250" max="32767" attributes="0" />
+                    <Component id="mk" min="170" pref="250" max="32767" attributes="0" />
+                    <Component id="role" min="170" pref="250" max="32767" attributes="0" />
+                    <Component id="ngayNhap" min="170" pref="250" max="32767" attributes="0" />
+                  </Group>
+                </Group>
+                <Component id="hint" min="0" pref="370" max="32767" attributes="0" />
+                <Group type="102" attributes="0">
+                  <Component id="them" min="85" pref="110" max="32767" attributes="0" />
+                  <EmptySpace min="-2" pref="6" max="-2" attributes="0" />
+                  <Component id="sua" min="85" pref="110" max="32767" attributes="0" />
+                  <EmptySpace min="-2" pref="6" max="-2" attributes="0" />
+                  <Component id="xoa" min="85" pref="110" max="32767" attributes="0" />
+                </Group>
+                <Group type="102" attributes="0">
+                  <Component id="luu" min="85" pref="110" max="32767" attributes="0" />
+                  <EmptySpace min="-2" pref="6" max="-2" attributes="0" />
+                  <Component id="huy" min="85" pref="110" max="32767" attributes="0" />
+                  <EmptySpace min="-2" pref="6" max="-2" attributes="0" />
+                  <Component id="trong" min="85" pref="110" max="32767" attributes="0" />
+                </Group>
+              </Group>
+            </Group>
+          </Group>
+          <EmptySpace min="-2" pref="12" max="-2" attributes="0" />
+        </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" attributes="0" groupAlignment="0">
+        <Group type="102" attributes="0">
+          <EmptySpace min="-2" pref="12" max="-2" attributes="0" />
+          <Component id="title" min="-2" pref="56" max="-2" attributes="0" />
+          <EmptySpace min="-2" pref="12" max="-2" attributes="0" />
+          <Group type="103" attributes="0" groupAlignment="0">
+            <Group type="102" attributes="0">
+              <Component id="lblList" min="-2" pref="-2" max="-2" attributes="0" />
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0" />
+              <Component id="scroll" min="220" pref="330" max="32767" attributes="0" />
+            </Group>
+            <Group type="102" attributes="0">
+              <Component id="lblInfo" min="-2" pref="-2" max="-2" attributes="0" />
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0" />
+              <Group type="103" attributes="0" groupAlignment="3">
+                <Component id="lblMa" min="-2" pref="-2" max="-2" attributes="0" />
+                <Component id="ma" min="-2" pref="-2" max="-2" attributes="0" />
+              </Group>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0" />
+              <Group type="103" attributes="0" groupAlignment="3">
+                <Component id="lblTen" min="-2" pref="-2" max="-2" attributes="0" />
+                <Component id="ten" min="-2" pref="-2" max="-2" attributes="0" />
+              </Group>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0" />
+              <Group type="103" attributes="0" groupAlignment="3">
+                <Component id="lblMk" min="-2" pref="-2" max="-2" attributes="0" />
+                <Component id="mk" min="-2" pref="-2" max="-2" attributes="0" />
+              </Group>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0" />
+              <Group type="103" attributes="0" groupAlignment="3">
+                <Component id="lblRole" min="-2" pref="-2" max="-2" attributes="0" />
+                <Component id="role" min="-2" pref="-2" max="-2" attributes="0" />
+              </Group>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0" />
+              <Group type="103" attributes="0" groupAlignment="3">
+                <Component id="lblNgay" min="-2" pref="-2" max="-2" attributes="0" />
+                <Component id="ngayNhap" min="-2" pref="-2" max="-2" attributes="0" />
+              </Group>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0" />
+              <Component id="hint" min="-2" pref="54" max="-2" attributes="0" />
+              <EmptySpace min="-2" pref="16" max="-2" attributes="0" />
+              <Group type="103" attributes="0" groupAlignment="3">
+                <Component id="them" min="-2" pref="-2" max="-2" attributes="0" />
+                <Component id="sua" min="-2" pref="-2" max="-2" attributes="0" />
+                <Component id="xoa" min="-2" pref="-2" max="-2" attributes="0" />
+              </Group>
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0" />
+              <Group type="103" attributes="0" groupAlignment="3">
+                <Component id="luu" min="-2" pref="-2" max="-2" attributes="0" />
+                <Component id="huy" min="-2" pref="-2" max="-2" attributes="0" />
+                <Component id="trong" min="-2" pref="-2" max="-2" attributes="0" />
+              </Group>
+            </Group>
+          </Group>
+          <EmptySpace min="-2" pref="12" max="-2" attributes="0" />
+        </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JLabel" name="title">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="QUẢN LÝ TÀI KHOẢN ĐĂNG NHẬP" />
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="22" style="1" />
+        </Property>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color red="41" green="53" blue="69" type="rgb" />
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color red="ff" green="ff" blue="ff" type="rgb" />
+        </Property>
+        <Property name="opaque" type="boolean" value="true" />
+        <Property name="horizontalAlignment" type="int" value="0" />
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblMa">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Mã" />
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblTen">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Tên đăng nhập" />
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblMk">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Mật khẩu" />
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblRole">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Vai trò" />
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblNgay">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ngày nhập" />
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblList">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Danh sách tài khoản" />
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblInfo">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Thông tin tài khoản" />
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="hint">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;Mật khẩu: ít nhất 8 ký tự, gồm chữ hoa, chữ số và ký tự đặc biệt.&lt;br&gt;Để trống mật khẩu khi sửa nếu không muốn đổi.&lt;/html&gt;" />
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="ma">
+      <Properties>
+        <Property name="editable" type="boolean" value="false" />
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="ten" />
+    <Component class="javax.swing.JTextField" name="mk" />
+    <Component class="javax.swing.JComboBox" name="role">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="2">
+            <StringItem index="0" value="Admin" />
+            <StringItem index="1" value="User" />
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;" />
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JTextField" name="ngayNhap">
+      <Properties>
+        <Property name="editable" type="boolean" value="false" />
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="them">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Thêm" />
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="themActionPerformed" />
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="sua">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Sửa" />
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="suaActionPerformed" />
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="xoa">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Xóa" />
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="xoaActionPerformed" />
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="luu">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Lưu" />
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="luuActionPerformed" />
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="huy">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Hủy" />
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="huyActionPerformed" />
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="trong">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Làm trống" />
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trongActionPerformed" />
+      </Events>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="scroll">
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout" />
+      <SubComponents>
+        <Component class="javax.swing.JTable" name="table">
+          <Properties>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+              <Table columnCount="4" rowCount="0">
+                <Column editable="false" title="Mã" type="java.lang.Object" />
+                <Column editable="false" title="Tên đăng nhập" type="java.lang.Object" />
+                <Column editable="false" title="Vai trò" type="java.lang.Object" />
+                <Column editable="false" title="Ngày nhập" type="java.lang.Object" />
+              </Table>
+            </Property>
+            <Property name="rowHeight" type="int" value="25" />
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>

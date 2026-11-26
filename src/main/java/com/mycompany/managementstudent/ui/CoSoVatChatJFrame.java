@@ -21,9 +21,17 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
     private int pos = -1;
     private static int check = 0;
     private String vaitro;
+    private String username;
+
+    public CoSoVatChatJFrame(String vaitro, String username) {
+        this(vaitro);
+        this.username = username;
+        btnQuanLyTaiKhoan.setVisible("Admin".equalsIgnoreCase(vaitro) && username != null && !username.isBlank());
+    }
     public CoSoVatChatJFrame(String vaitro) {
         initComponents();
         this.vaitro = vaitro;
+        btnQuanLyTaiKhoan.setVisible(false);
         System.out.println("Vai trò nhận được: [" + this.vaitro + "]");
         phanquyen();
         loadLoai();
@@ -126,6 +134,7 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel4 = new javax.swing.JPanel();
+        btnQuanLyTaiKhoan = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -180,6 +189,13 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Theo dõi phòng học, thiết bị và tình trạng sử dụng");
 
+        btnQuanLyTaiKhoan.setText("Quản lý tài khoản");
+        btnQuanLyTaiKhoan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuanLyTaiKhoanActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -189,7 +205,9 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnQuanLyTaiKhoan)
+                .addGap(16, 16, 16))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -197,6 +215,10 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(btnQuanLyTaiKhoan)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -775,7 +797,14 @@ public class CoSoVatChatJFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new LoginCoSoVatChatJFrame().setVisible(true));
     }
 
+    private void btnQuanLyTaiKhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanLyTaiKhoanActionPerformed
+        if ("Admin".equalsIgnoreCase(vaitro) && username != null && !username.isBlank()) {
+            new TaikhoanCosovatchatJFrame(this, vaitro, username).setVisible(true);
+        }
+    }//GEN-LAST:event_btnQuanLyTaiKhoanActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnQuanLyTaiKhoan;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnAddloai;
     private javax.swing.JButton btnDelete;

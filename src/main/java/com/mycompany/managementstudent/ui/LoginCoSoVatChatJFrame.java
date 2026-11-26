@@ -169,9 +169,7 @@ public class LoginCoSoVatChatJFrame extends javax.swing.JFrame {
             this,
             "Đăng nhập thành công! Vai trò: " + vaitro);
         
-            CoSoVatChatJFrame frame = new CoSoVatChatJFrame(vaitro);
-            // Bổ sung chức năng quản lí tài khoản
-            NutQuanLyTaiKhoan.gan(frame, vaitro, tk.getTendangnhap());
+            CoSoVatChatJFrame frame = new CoSoVatChatJFrame(vaitro, tk.getTendangnhap());
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
             this.dispose();
