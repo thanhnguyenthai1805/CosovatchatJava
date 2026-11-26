@@ -19,22 +19,28 @@ import javax.swing.JOptionPane;
 public class taikhoanDAO {
 
     public taikhoan dangnhap(String tendangnhap, String matkhau) {
-        String sql = "select tendangnhap,matkhau from taikhoan where tendangnhap =? and matkhau = ?";
+        String sql = """
+                     select tendangnhap,matkhau,vaitro from taikhoan 
+                     where tendangnhap =? and matkhau = ?""";
         try (Connection conn = ConnectionDB.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, tendangnhap);
             ps.setString(2, matkhau);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return new taikhoan(
-                            rs.getString("tendangnhap"),
-                            rs.getString("matkhau")
-                    );
+                    taikhoan tk = new taikhoan();
+                    tk.setTendangnhap(rs.getString("tendangnhap"));
+                    tk.setMatkhau(rs.getString("matkhau"));
+                    tk.setVaitro(rs.getString("vaitro"));
+                    System.out.println();
+                    return tk;
                 }
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null,e.getMessage());
+            JOptionPane.showMessageDialog(
+            null,
+            "Lỗi đăng nhập: " + e.getMessage()
+        );
         }
         return null;
 

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.managementstudent.dao;
 
 import com.mycompany.managementstudent.model.LoaiCoSoVatChat;
@@ -9,83 +5,163 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
-/**
- *
- * @author Admin
- */
+
 public class LoaiCoSoVatChatDAO {
-    public List<LoaiCoSoVatChat> fillAll(){
+
+    public List<LoaiCoSoVatChat> findAll() {
+
         List<LoaiCoSoVatChat> list = new ArrayList<>();
-        String sql = """
-                    
-                select maloai,tenloai
-                        from loaicosovatchat
-                                order by maloai
-                """
-               ;
-        
-        try(Connection conn = ConnectionDB.getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery()) {
-            while(rs.next()){
-                list.add(new LoaiCoSoVatChat(
-                rs.getInt("maloai"),
-                rs.getString("tenloai")
-                ));
+
+        String sql =
+                "SELECT maloai, tenloai "
+                + "FROM loaicosovatchat "
+                + "ORDER BY maloai";
+
+        try (
+            Connection conn = ConnectionDB.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()
+        ) {
+
+            while (rs.next()) {
+
+                list.add(
+                    new LoaiCoSoVatChat(
+                        rs.getString("maloai"),
+                        rs.getString("tenloai")
+                    )
+                );
             }
-            
-                }catch (SQLException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage());
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Loi tai danh sach loai: " + e.getMessage()
+            );
         }
+
         return list;
     }
-    public boolean insert(String tenloai){
-        String sql = """
-                     insert into loaicosovatchat(tenloai)
-                     values (?)
-                     
-                     """;
-        try {
+
+    public boolean insert(LoaiCoSoVatChat loai) {
+
+        String sql =
+                "INSERT INTO loaicosovatchat(maloai, tenloai) "
+                + "VALUES (?, ?)";
+
+        try (
             Connection conn = ConnectionDB.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql)
+        ) {
+
+            ps.setString(1, loai.getMaloai());
+            ps.setString(2, loai.getTenloai());
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Loi them loai: " + e.getMessage()
+            );
+
+            return false;
+        }
+    }
+
+    public boolean update(String maloai, String tenloai) {
+
+        String sql =
+                "UPDATE loaicosovatchat "
+                + "SET tenloai = ? "
+                + "WHERE maloai = ?";
+
+        try (
+            Connection conn = ConnectionDB.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)
+        ) {
+
             ps.setString(1, tenloai.trim());
+            ps.setString(2, maloai);
+
             return ps.executeUpdate() > 0;
+
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,e.getMessage());
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Loi cap nhat loai: " + e.getMessage()
+            );
+
             return false;
         }
     }
-    public boolean update(int maloai , String tenloai){
-        String sql = """
-                     update loaicosovatchat set tenloai =? where maloai = ?
-                     """;
-        try (Connection conn = ConnectionDB.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);)
-        {
-            
-            ps.setString(1,tenloai.trim());
-            ps.setInt(2, maloai);
-            return ps.executeUpdate() > 0;
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-            return false;
-        }
-    }
-    public boolean delete(int maloai){
-        String sql = """
-                     delete from loaicosovatchat where maloai =?
-                     """;
-        try {
+
+    public boolean delete(String maloai) {
+
+        String sql =
+                "DELETE FROM loaicosovatchat "
+                + "WHERE maloai = ?";
+
+        try (
             Connection conn = ConnectionDB.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, maloai);
-            return ps.executeUpdate()>0;
+            PreparedStatement ps = conn.prepareStatement(sql)
+        ) {
+
+            ps.setString(1, maloai);
+
+            return ps.executeUpdate() > 0;
+
         } catch (SQLException e) {
-             JOptionPane.showMessageDialog(null, e.getMessage());
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Loi xoa loai: " + e.getMessage()
+            );
+
             return false;
         }
+    }
+    public boolean sudung(String maloai){
+        String sql = """
+                     select count(*)
+                     from dbo.cosovatchat
+                     where maloai = ?
+                     """;
+        try(Connection conn = ConnectionDB.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)
+                ){
+            ps.setString(1, maloai);
+            try (ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    return rs.getInt(1) > 0;
+                }
+            }
+        }catch(SQLException ex ){
+            JOptionPane.showMessageDialog(null, "Lỗi kiểm tra loai " + ex.getMessage());
+        }
+        return false;
+    }
+public String taoMaloai(){
+        String sql = """
+                     select max(try_convert(int,substring(maloai,5,30)))
+                     from dbo.loaicosovatchat
+                     where maloai like 'LOAI%'
+                     """;
+        try(Connection conn = ConnectionDB.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()){
+            if(rs.next()){
+                int so = rs.getInt(1)+1;
+                return String.format("LOAI%03d", so);
+            }
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,"Lỗi tạo mã"+ex.getMessage());
+        }
+    return null;
     }
 }

@@ -11,14 +11,24 @@ package com.mycompany.managementstudent.model;
 public class taikhoan {
     private String tendangnhap;
     private String matkhau;
+    private String vaitro;
     public taikhoan(){
         tendangnhap = "";
         matkhau="";
     }
 
+    public String getVaitro() {
+        return vaitro;
+    }
+
+    public void setVaitro(String vaitro) {
+        this.vaitro = vaitro;
+    }
+  
     public taikhoan(String tendangnhap, String matkhau) {
         this.tendangnhap = tendangnhap;
         this.matkhau = matkhau;
+        this.vaitro = vaitro;
     }
 
     public String getTendangnhap() {

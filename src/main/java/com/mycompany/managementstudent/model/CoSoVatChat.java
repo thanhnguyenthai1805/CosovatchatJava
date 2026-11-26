@@ -1,18 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.managementstudent.model;
 import java.time.LocalDate;
 
-/**
- *
- * @author Admin
- */
 public class CoSoVatChat {
-        private int ma;
+        private String ma;
         private String ten;
-        private String loai;
+        private String tenLoai;
+        private String maloai;
         private String phongkhuvuc;
         private int soluong;
         private String tinhtrang;
@@ -21,9 +15,10 @@ public class CoSoVatChat {
         public CoSoVatChat() {
 }
     public CoSoVatChat(
-            int ma,
+            String ma,
             String ten,
-            String loai,
+            String tenloai,
+            String maloai,
             String phongkhuvuc,
             int soluong,
             String tinhtrang,
@@ -31,8 +26,9 @@ public class CoSoVatChat {
             String ghichu
     ){
         this.ma=ma;
+        this.tenLoai=tenloai;
         this.ten=ten;
-        this.loai=loai;
+        this.maloai=maloai;
         this.phongkhuvuc=phongkhuvuc;
         this.soluong=soluong;
         this.tinhtrang=tinhtrang;
@@ -40,27 +36,35 @@ public class CoSoVatChat {
         this.ghichu=ghichu;
     }
 
-    public int getMa(){
+    public String getTenLoai() {
+        return tenLoai;
+    }
+
+    public void setTenLoai(String tenLoai) {
+        this.tenLoai = tenLoai;
+    }
+    
+    public String getMa(){
         return ma;
     }
      
-    public void setMa(int ma){
+    public void setMa(String ma){
     this.ma=ma;
     }
      public String getTen() {
         return ten;
     }
 
-    public void setTen(String ten) {
+    public void setTen(String ten){
         this.ten = ten;
     }
 
-    public String getLoai() {
-        return loai;
+    public String getMaloai() {
+        return maloai;
     }
 
-    public void setLoai(String loai) {
-        this.loai = loai;
+    public void setMaloai(String maloai) {
+        this.maloai = maloai;
     }
 
     public String getPhongKhuVuc() {
